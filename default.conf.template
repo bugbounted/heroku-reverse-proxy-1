@@ -1,21 +1,13 @@
-upstream client {
-  server $HEROKU_APP_1_DOMAIN_NAME;
-}
-
-upstream backend {
-  server $HEROKU_APP_2_DOMAIN_NAME;
-}
-
 server {
   listen $PORT;
 
-  location / {
-    proxy_pass http://client;
+  location /home {
+    proxy_pass $HEROKU_APP_1_DOMAIN_NAME;
     proxy_set_header Host $HEROKU_APP_1_DOMAIN_NAME;
   }
 
-  location /api {
-    proxy_pass http://backend;
+  location /blog {
+    proxy_pass $HEROKU_APP_1_DOMAIN_NAME;
     proxy_set_header Host $HEROKU_APP_2_DOMAIN_NAME;
   }
 }
