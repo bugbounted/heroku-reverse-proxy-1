@@ -1,1 +1,1 @@
-npx angular-http-server --path dist/lol --baseHref app-1
+npx angular-http-server --path dist/lol --baseHref home
