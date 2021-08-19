@@ -8,6 +8,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      
+      - name: Checkout
+        uses: actions/checkout@v2
 
       # NPM Install & Build
       - name: Build, Push and Release a Docker container to Heroku. 
