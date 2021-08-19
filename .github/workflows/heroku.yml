@@ -1,0 +1,44 @@
+name: Deploy to heroku.
+
+on:
+  push:
+    branches: [app-1, app-2]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      
+      # Cache Node Modules
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      
+       # Checkout NodeJS
+      - name: Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+       
+       # NPM Install & Build
+      - name: npm install and npm run build
+        run: |
+          npm i
+          npm run build:prod
+      
+      #- name: Checkout
+      #  uses: actions/checkout@v2
+      # NPM Install & Build
+      - name: Build, Push and Release a Docker container to Heroku. 
+        uses: gonuit/heroku-docker-deploy@v1.3.3
+        with:
+          email: ${{ secrets.HEROKU_EMAIL }}
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          dockerfile_directory: ./
+          dockerfile_name: Dockerfile
+          process_type: web
