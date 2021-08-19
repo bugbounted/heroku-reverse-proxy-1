@@ -11,5 +11,5 @@ import { Component } from '@angular/core';
   styles: []
 })
 export class AppComponent {
-  title = 'APP 1';
+  title = 'Home App';
 }
