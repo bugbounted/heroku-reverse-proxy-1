@@ -2,10 +2,10 @@ server {
   listen $PORT;
 
   location /home {
-    proxy_pass angular-no-route-app-1.herokuapp.com;
+    proxy_pass https://angular-no-route-app-1.herokuapp.com/;
   }
 
   location /blog {
-    proxy_pass angular-no-route-app-2.herokuapp.com;
+    proxy_pass https://angular-no-route-app-2.herokuapp.com/;
   }
 }
