@@ -3,11 +3,9 @@ server {
 
   location /home {
     proxy_pass $HEROKU_APP_1_DOMAIN_NAME;
-    proxy_set_header Host $HEROKU_APP_1_DOMAIN_NAME;
   }
 
   location /blog {
-    proxy_pass $HEROKU_APP_1_DOMAIN_NAME;
-    proxy_set_header Host $HEROKU_APP_2_DOMAIN_NAME;
+    proxy_pass $HEROKU_APP_2_DOMAIN_NAME;
   }
 }
