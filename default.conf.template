@@ -1,8 +1,21 @@
+upstream client {
+  server $HEROKU_APP_1_DOMAIN_NAME;
+}
+
+upstream backend {
+  server $HEROKU_APP_2_DOMAIN_NAME;
+}
+
 server {
-  listen $PORT default_server;
+  listen $PORT;
 
   location / {
-    root   /usr/share/nginx/html;
-    index  index.html index.htm;
+    proxy_pass http://client;
+    proxy_set_header Host $HEROKU_APP_1_DOMAIN_NAME;
+  }
+
+  location /api {
+    proxy_pass http://backend;
+    proxy_set_header Host $HEROKU_APP_2_DOMAIN_NAME;
   }
 }

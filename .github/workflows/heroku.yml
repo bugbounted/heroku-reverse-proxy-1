@@ -2,37 +2,12 @@ name: Deploy to heroku.
 
 on:
   push:
-    branches: [app-1, app-2]
+    branches: [reverse-proxy]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      
-      # Cache Node Modules
-      - name: Cache node modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node
-
-      - name: Checkout
-        uses: actions/checkout@v2
-       # Checkout NodeJS
-      - name: Node 
-        uses: actions/setup-node@v2
-        with:
-            node-version: '16'
-            cache: 'npm'
-       
-       # NPM Install & Build
-      - name: npm install and npm run build
-        run: |
-          npm i
-          npm run build
-      
 
       # NPM Install & Build
       - name: Build, Push and Release a Docker container to Heroku. 
@@ -40,7 +15,7 @@ jobs:
         with:
           email: ${{ secrets.HEROKU_EMAIL }}
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: ${{ secrets.HEROKU_APP_1_NAME }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_3_NAME }}
           dockerfile_directory: ./
           dockerfile_name: Dockerfile
           process_type: web
