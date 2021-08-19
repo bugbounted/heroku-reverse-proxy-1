@@ -11,18 +11,21 @@ jobs:
       
       # Cache Node Modules
       - name: Cache node modules
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-node
 
       - name: Checkout
         uses: actions/checkout@v2
        # Checkout NodeJS
       - name: Node 
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
+        with:
+            node-version: '14'
+            cache: 'npm'
        
        # NPM Install & Build
       - name: npm install and npm run build
