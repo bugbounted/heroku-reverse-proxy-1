@@ -17,12 +17,12 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      
+
+      - name: Checkout
+        uses: actions/checkout@v2
        # Checkout NodeJS
-      - name: Node ${{ matrix.node-version }}
+      - name: Node 
         uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
        
        # NPM Install & Build
       - name: npm install and npm run build
@@ -30,8 +30,7 @@ jobs:
           npm i
           npm run build:prod
       
-      #- name: Checkout
-      #  uses: actions/checkout@v2
+
       # NPM Install & Build
       - name: Build, Push and Release a Docker container to Heroku. 
         uses: gonuit/heroku-docker-deploy@v1.3.3
